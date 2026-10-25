@@ -2,19 +2,15 @@ import librosa
 
 
 def load_audio(file_path, sr=16000):
-    """
-    WAV dosyasını yükler.
+    y, sr = librosa.load(str(file_path), sr=sr, mono=True)
 
-    Returns:
-        y: np.ndarray, ses sinyali
-        sr: Örnekleme frekansı
-    """
-    y, sr = librosa.load(file_path, sr=sr, mono=True)
+    if len(y) == 0:
+        raise ValueError("Ses dosyası boş.")
 
     duration = len(y) / sr
 
-    print(
-        f"Dosya: {file_path}, Süre: {duration:.2f} saniye, Örnekleme frekansı: {sr} Hz"
-    )
+    print(f"Dosya: {file_path}")
+    print(f"Örnekleme frekansı: {sr} Hz")
+    print(f"Süre: {duration:.2f} saniye")
 
     return y, sr
